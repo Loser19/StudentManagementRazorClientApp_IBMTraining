@@ -1,0 +1,37 @@
+﻿@page
+@model StudentManagementRazorClientApp.Pages.EnrollmentListModel
+@{
+    ViewData["Title"] = "Enrollment List";
+}
+<h1>Enrollment List</h1>
+<a asp-page="/EnrollmentCreate" class="btn btn-success">Create Enrollment</a>
+
+<table class="table mt-4">
+    <thead>
+        <tr>
+            <th>Student</th>
+            <th>Course</th>
+            <th>Date</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var e in await Model.Enrollments)
+        {
+            <tr>
+                <td>@e.Student?.Name</td>
+                <td>@e.Course?.Title</td>
+                <td>@e.EnrollmentDate.ToString("yyyy-MM-dd")</td>
+                <td>
+                    <a asp-page="EnrollmentDetails" asp-route-id="@e.EnrollmentId" class="btn btn-info">Details</a>
+                    <a asp-page="EnrollmentEdit" asp-route-id="@e.EnrollmentId" class="btn btn-warning">Edit</a>
+                    <form method="post" asp-page-handler="Delete" asp-route-id="@e.EnrollmentId" style="display:inline;">
+                        <button class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this enrollment?');">
+                            <i class="fas fa-trash-alt"></i> Delete
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

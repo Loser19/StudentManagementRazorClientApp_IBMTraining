@@ -1,0 +1,33 @@
+﻿@page
+@model WebAppRazorStudentClient.Pages.StudentListModel
+@{
+    ViewData["Title"] = "Student List";
+}
+<h1>Student List</h1>
+<a asp-page="/StudentCreate" class="btn btn-success">Create New Student</a>
+
+<table class="table mt-5">
+    <thead>
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Age</th>
+            <th scope="col">Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var student in await Model.StudentList)
+        {
+            <tr>
+                <td>@student.Name</td>
+                <td>@student.Age</td>
+                <td>
+                    <a asp-page="StudentDetails" asp-route-id="@student.StudentId" class="btn btn-info">Details</a>
+                    <a asp-page="StudentEdit" asp-route-id="@student.StudentId" class="btn btn-warning">Edit</a>
+                    <form method="post" asp-page-handler="Delete" asp-route-id="@student.StudentId" style="display:inline;">
+                        <button class="btn btn-danger">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

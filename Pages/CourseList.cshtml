@@ -1,0 +1,33 @@
+﻿@page
+@model WebAppRazorCourseClient.Pages.CourseListModel
+@{
+    ViewData["Title"] = "Course List";
+}
+<h1>Course List</h1>
+<a asp-page="/CourseCreate" class="btn btn-success">Create New Course</a>
+
+<table class="table mt-5">
+    <thead>
+        <tr>
+            <th scope="col">Title</th>
+            <th scope="col">Credits</th>
+            <th scope="col">Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var course in await Model.CourseList)
+        {
+            <tr>
+                <td>@course.Title</td>
+                <td>@course.Credits</td>
+                <td>
+                    <a asp-page="CourseDetails" asp-route-id="@course.CourseId" class="btn btn-info">Details</a>
+                    <a asp-page="CourseEdit" asp-route-id="@course.CourseId" class="btn btn-warning">Edit</a>
+                    <form method="post" asp-page-handler="Delete" asp-route-id="@course.CourseId" style="display:inline;">
+                        <button class="btn btn-danger">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
