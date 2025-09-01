@@ -23,11 +23,6 @@ namespace StudentManagementRazorClientApp.Pages
 
             return RedirectToPage();
         }
-
-        //public async Task OnGetAsync()
-        //{
-        //    Enrollments = await _service.GetEnrollmentsAsync();
-        //}
         public void OnGet()
         {
             Enrollments = _service.GetEnrollmentsAsync();
